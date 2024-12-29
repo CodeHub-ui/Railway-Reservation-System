@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Reservation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group select, .form-group button {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+        }
+
+        th {
+            background-color: #f4f4f9;
+        }
+
+        .message {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Railway Reservation System</h1>
+</header>
+
+<div class="container">
+    <form id="reservationForm">
+        <div class="form-group">
+            <label for="name">Passenger Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="train">Train</label>
+            <select id="train" name="train" required>
+                <option value="">-- Select a Train --</option>
+                <option value="Express 101">Express 101</option>
+                <option value="Superfast 202">Superfast 202</option>
+                <option value="Local 303">Local 303</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date">Date of Journey</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label for="payment">Payment Amount ($)</label>
+            <input type="number" id="payment" name="payment" min="1" required>
+        </div>
+        <div class="form-group">
+            <button type="submit">Book Ticket</button>
+        </div>
+    </form>
+
+    <div id="message" class="message" style="display: none;">Ticket booked successfully!</div>
+
+    <table id="ticketTable">
+        <thead>
+            <tr>
+                <th>Passenger Name</th>
+                <th>Train</th>
+                <th>Date of Journey</th>
+                <th>Payment Amount ($)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+    const reservationForm = document.getElementById('reservationForm');
+    const ticketTable = document.getElementById('ticketTable').querySelector('tbody');
+    const message = document.getElementById('message');
+
+    reservationForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get form data
+        const name = document.getElementById('name').value;
+        const train = document.getElementById('train').value;
+        const date = document.getElementById('date').value;
+        const payment = document.getElementById('payment').value;
+
+        // Add ticket to table
+        const row = ticketTable.insertRow();
+        row.insertCell(0).textContent = name;
+        row.insertCell(1).textContent = train;
+        row.insertCell(2).textContent = date;
+        row.insertCell(3).textContent = `$${payment}`;
+
+        // Show success message
+        message.style.display = 'block';
+        setTimeout(() => message.style.display = 'none', 3000);
+
+        // Reset form
+        reservationForm.reset();
+    });
+</script>
+
+</body>
+</html>
